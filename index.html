@@ -63,6 +63,39 @@
                 exportButton.style.display = 'block';
             });
         }
+        document.addEventListener('DOMContentLoaded', function () {
+
+            const today = new Date();
+            const dateInput = document.getElementById('quotationDate');
+            const dateOptions = {
+                day: '2-digit',
+                month: 'long',
+                year: 'numeric'
+            };
+            dateInput.value = today.toLocaleDateString('id-ID', dateOptions);
+            const numberInput = document.getElementById('quotationNumber');
+
+            const day = String(today.getDate()).padStart(2, '0');
+            const month = String(today.getMonth() + 1).padStart(2, '0');
+            const year = String(today.getFullYear()).slice(-2);
+
+            const monthMap = {
+                '01': 'JAN',
+                '02': 'FEB',
+                '03': 'MAR',
+                '04': 'APR',
+                '05': 'MEI',
+                '06': 'JUN',
+                '07': 'JUL',
+                '08': 'AGT',
+                '09': 'SEP',
+                '10': 'OKT',
+                '11': 'NOV',
+                '12': 'DES'
+            };
+
+            numberInput.value = `${day}${month}/${monthMap[month]}/AC/${year}`;
+        });
   </script>
  </head>
  <body class="bg-white p-8">
@@ -100,10 +133,10 @@
      </div>
      <div class="md:col-span-2 flex flex-col justify-between">
       <p>
-       <input class="w-full border border-gray-300 p-1" type="text" value="2306/AGT/AC/24"/>
+       <input class="w-full border border-gray-300 p-1" type="text" id="qutationNumber"/>
       </p>
       <p>
-       <input class="w-full border border-gray-300 p-1" type="text" value="23 Agustus 2024"/>
+       <input class="w-full border border-gray-300 p-1" type="text" id="qutationDate"/>
       </p>
       <p>
        <input class="w-full border border-gray-300 p-1" type="text" value="Bapak Heri"/>
@@ -180,4 +213,34 @@
    Export to PDF
   </button>
  </body>
+ <style>
+@media print {
+    body {
+        min-width: 1024px !important;
+    }
+
+    #quotationContent {
+        width: 1024px !important;
+        max-width: 1024px !important;
+        margin: 0 auto !important;
+    }
+
+    table {
+        width: 100% !important;
+        font-size: 12px;
+    }
+
+    input, textarea {
+        font-size: 12px !important;
+    }
+
+    button, a {
+        display: none !important;
+    }
+
+    .grid {
+        grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
+    }
+}
+</style>
 </html>
